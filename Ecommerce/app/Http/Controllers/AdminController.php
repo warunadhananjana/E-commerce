@@ -40,6 +40,7 @@ class AdminController extends Controller // Corrected here
     }
     public function showproduct()
     {
-        return view('admin.showproduct');
+        $data=Product::all();
+        return view('admin.showproduct',compact('data'));
     }
 }
