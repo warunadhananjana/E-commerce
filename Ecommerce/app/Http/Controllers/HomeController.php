@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 
+use App\Models\product;
+
 use App\Models\User;
 
 class HomeController extends Controller
@@ -19,8 +21,9 @@ class HomeController extends Controller
             return view('admin.home');
         }
         else
-        {
-            return view('user.home');
+        {   
+            $data = product::paginate(3);
+            return view('user.home',compact('data'));
         }
     }
 
@@ -32,7 +35,8 @@ class HomeController extends Controller
         }
         else
         {
-            return view('user.home');
+            $data = product::paginate(3);
+            return view('user.home',compact('data'));
         }
         
     }

@@ -35,7 +35,11 @@ class AdminController extends Controller // Corrected here
 
         $data->save();
 
-        return redirect()->back();
+        return redirect()->back()->with('message','Product Uploaded Successfully');
 
+    }
+    public function showproduct()
+    {
+        return view('admin.showproduct');
     }
 }

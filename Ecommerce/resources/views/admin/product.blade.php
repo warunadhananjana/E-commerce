@@ -28,6 +28,14 @@
     <div class="container-fluid page-body-wrapper">
         <div class="container" align="center">
             <h1 class="title">This is Product</h1>
+            @if(Session::has('message'))
+                <div class="alert alert-success">
+               <button type="button" class="close" data-dismiss="alert">x</button>
+
+               {{Session::get('message')}}
+               </div>
+            @endif
+
            <form  action="{{url('uploadproduct')}}" method="post" enctype="multipart/form-data">
              @csrf
             <div style="padding: 15px">
