@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 
 use App\Http\Controllers\AdminController;
@@ -45,6 +46,9 @@ route::get('/updateview/{id}', [AdminController::class, 'updateview']);
 
 route::post('/updateproduct/{id}', [AdminController::class, 'updateproduct']);
 
+route :: get('/search',[HomeController::class,'search']);
+
+route::post('/addcard/{id}', [HomeController::class, 'addcard']);
 
 
 
