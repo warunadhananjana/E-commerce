@@ -10,6 +10,7 @@ use App\Models\product;
 
 use App\Models\User;
 
+use App\Models\Card;
 class HomeController extends Controller
 {
     public function redirect()
@@ -55,12 +56,33 @@ class HomeController extends Controller
     }
     
     public function addcard(Request $request, $id)
-{
-    if (Auth::id()) {
-        return redirect()->back();
-    } else {
-        return redirect('login');
+    {
+        if (Auth::id()) {
+            $user = auth()->user();
+            $product = Product::find($id);
+    
+            if (!$product) {
+                return redirect()->back()->with('error', 'Product not found');
+            }
+    
+            $request->validate([
+                'quantity' => 'required|integer|min:1',
+            ]);
+    
+            $card = new Card;
+            $card->name = $user->name; 
+            $card->phone = $user->phone;
+            $card->adress = $user->adress;
+            $card->product_title = $product->title;
+            $card->price = $product->price;
+            $card->quantity = $request->quantity;
+            $card->save();
+    
+            return redirect()->back()->with('message','Product Add Successfully');
+        } else {
+            return redirect('login');
+        }
     }
-}
+    
 
 }

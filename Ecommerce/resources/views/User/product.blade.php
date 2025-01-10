@@ -1,3 +1,44 @@
+<style>
+.alert {
+    position: relative;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+    font-size: 16px;
+    line-height: 1.5;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.alert .close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1;
+    color: #0c4226;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.alert .close:hover {
+    color: #d63333; /* Slightly darker red on hover */
+}
+</style>
+
+@if(session()->has('message'))
+                        <div class="alert">
+                            <span>{{ session()->get('message') }}</span>
+                            <button type="button" class="close" onclick="this.parentElement.style.display='none'">×</button>
+                        </div>
+                        @endif
 <div class="latest-products">
       <div class="container">
         <div class="row">
