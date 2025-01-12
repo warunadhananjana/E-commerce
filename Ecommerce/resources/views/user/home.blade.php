@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <title>Sixteen Clothing HTML Template</title>
 
     <!-- Bootstrap core CSS -->
@@ -70,7 +70,12 @@ https://templatemo.com/tm-546-sixteen-clothing
               @if (Route::has('login'))
                 
                     @auth
-                    
+                    <li class="nav-item">
+                    <a class="nav-link" href="contact.html">
+                    <i class="fa-solid fa-cart-shopping" style="color: #63E6BE; margin-right: 12px;"></i>Cart
+                    </a>
+
+              </li>
                       <x-app-layout>
                       </x-app-layout>
                       
