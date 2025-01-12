@@ -72,7 +72,7 @@ https://templatemo.com/tm-546-sixteen-clothing
                     @auth
                     <li class="nav-item">
                     <a class="nav-link" href="contact.html">
-                    <i class="fa-solid fa-cart-shopping" style="color: #63E6BE; margin-right: 12px;"></i>Cart
+                    <i class="fa-solid fa-cart-shopping" style="color: #63E6BE; margin-right: 12px;"></i>Cart[{{$count}}]
                     </a>
 
               </li>
