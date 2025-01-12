@@ -85,6 +85,14 @@ class HomeController extends Controller
             return redirect('login');
         }
     }
+
+    public function showcart()
+    {
+        $user = auth()->user();
+        $cart=card::where('phone',$user->phone);
+        $count=Card::where('phone',$user->phone)->count();
+        return view('user.showcart', compact('count' ,'card'));
+    } 
     
 
 }
