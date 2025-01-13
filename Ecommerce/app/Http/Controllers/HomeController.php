@@ -89,9 +89,9 @@ class HomeController extends Controller
     public function showcart()
     {
         $user = auth()->user();
-        $cart=card::where('phone',$user->phone);
+        $cart=card::where('phone',$user->phone)->get();
         $count=Card::where('phone',$user->phone)->count();
-        return view('user.showcart', compact('count' ,'card'));
+        return view('user.showcart', compact('count' ,'cart'));
     } 
     
 
