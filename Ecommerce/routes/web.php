@@ -50,8 +50,9 @@ route :: get('/search',[HomeController::class,'search']);
 
 route::post('/addcard/{id}', [HomeController::class, 'addcard']);
 
-
 route::get('/showcart', [HomeController::class, 'showcart']);
+
+route::get('/delete/{id}', [HomeController::class, 'deletecart']);
 
 
 

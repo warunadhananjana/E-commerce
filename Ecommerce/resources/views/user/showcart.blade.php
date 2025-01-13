@@ -13,6 +13,35 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+        
+        .alert {
+    position: fixed;
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    min-width: 300px;
+    max-width: 80%;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: opacity 0.5s ease-out; /* Add this for fade-out effect */
+}
+
+.alert-success {
+    border-left: 4px solid #28a745;
+}
+
+.alert.fade-out {
+    opacity: 0;
+}
+
         /* Reset and Base Styles */
         * {
             margin: 0;
@@ -27,36 +56,48 @@
 
         /* Header Styles */
         header {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
+            background-color: #fff;
+            transition: all 0.3s ease-in-out;
         }
+        
 
         .navbar {
             padding: 15px 0;
+            background-color: #232323 !important;
         }
 
         .navbar-brand h2 {
             font-size: 24px;
             margin: 0;
+            color: #fff;
         }
 
         .navbar-brand em {
             color: #f33f3f;
+            font-style: normal;
         }
 
         .nav-link {
-            color: #1a1a1a;
+            color: #fff !important;
             font-weight: 500;
             padding: 10px 15px !important;
             transition: color 0.3s;
         }
 
         .nav-link:hover {
-            color: #f33f3f;
+            color: #f33f3f !important;
+        }
+
+        .navbar-toggler {
+            border-color: #fff;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
         }
 
         /* Cart Section Styles */
@@ -220,6 +261,10 @@
                 padding: 10px 20px;
                 font-size: 14px;
             }
+
+            .navbar {
+                padding: 10px 0;
+            }
         }
 
         /* Preloader */
@@ -296,6 +341,34 @@
                 </div>
             </div>
         </nav>
+        @if(session()->has('message'))
+    <div id="delete-success-alert" class="alert alert-success">
+        <div class="circle-animation">
+            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none" />
+                <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+            </svg>
+        </div>
+        <span class="alert-text">{{ session()->get('message') }}</span>
+    </div>
+    <script>
+        // Ensure the script runs after the DOM has fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            const alert = document.getElementById('delete-success-alert');
+            if (alert) {
+                // Wait 5 seconds before fading out the message
+                setTimeout(() => {
+                    alert.style.transition = 'opacity 0.5s ease-out';
+                    alert.style.opacity = '0'; // Fade out effect
+                    setTimeout(() => {
+                        alert.remove(); 
+                    }, 500); // Wait for the fade-out transition to complete
+                }, 5000); // 5 seconds delay before fade-out
+            }
+        });
+    </script>
+@endif
+
     </header>
 
     <!-- Cart Section -->
@@ -308,18 +381,22 @@
                             <th>Product Name</th>
                             <th>Quantity</th>
                             <th>Price</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <form>
                         @foreach($cart as $carts)
                         <tr>
                             <td data-label="Product Name" class="product-name">{{$carts->product_title}}</td>
                             <td data-label="Quantity" class="quantity">{{$carts->quantity}}</td>
                             <td data-label="Price" class="price">${{$carts->price}}</td>
+                            <td data-label="Price" class="price"><a class="btn btn-danger" href="{{url('delete',$carts->id)}}">Delete</a></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                </form>
             @else
                 <div class="cart-empty">
                     <h3>Your cart is empty</h3>
