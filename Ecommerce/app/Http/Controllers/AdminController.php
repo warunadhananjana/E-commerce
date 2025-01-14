@@ -83,6 +83,29 @@ class AdminController extends Controller // Corrected here
         return redirect()->back()->with('message','Product Uploaded Successfully');
         
     }
+
+    public function confirmorder(Request $request)
+    {
+        $user=auth()->user();
+        $name=$user->name;
+        $phone=$user->phone;
+        $address=$user->address;
+
+        foreach($request->product as $product)
+        {
+            $data=new Order;
+            $data->name=$name;
+            $data->phone=$phone;
+            $data->address=$address;
+            $data->product_name=$product['title'];
+            $data->quantity=$product['quantity'];
+            $data->price=$product['price'];
+            $data->status='Pending';
+            $data->save();
+        }
+        $data = Product::paginate(3);
+        return view('user.home',compact('data'));
+    }
     
     
 

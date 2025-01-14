@@ -385,17 +385,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <form>
+                        <form action="{{url('order')}}" method="post">
+                            @csrf
                         @foreach($cart as $carts)
                         <tr>
-                            <td data-label="Product Name" class="product-name">{{$carts->product_title}}</td>
-                            <td data-label="Quantity" class="quantity">{{$carts->quantity}}</td>
-                            <td data-label="Price" class="price">${{$carts->price}}</td>
+                            <td data-label="Product Name" class="product-name"> 
+                            <input type="text" name="productname[]" value="{{$carts->product_id}}" hidden="">
+                                {{$carts->product_title}}</td>
+                            <td data-label="Quantity" class="quantity">
+                            <input type="number" name="quantity[]" value="{{$carts->quantity}}" hidden="">
+                            {{$carts->quantity}}</td>
+                            <td data-label="Price" class="price">
+                            <input type="text" name="price[]" value="{{$carts->price}}" hidden="">
+                                {{$carts->price}}</td>
                             <td data-label="Price" class="price"><a class="btn btn-danger" href="{{url('delete',$carts->id)}}">Delete</a></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                 <button class="btn btn-success">Confirm Order</button>
                 </form>
             @else
                 <div class="cart-empty">
