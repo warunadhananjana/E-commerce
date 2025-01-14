@@ -6,9 +6,13 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Models\product;
 
 use App\Models\User;
+
+use App\Models\Order;
 
 use App\Models\Card;
 class HomeController extends Controller
@@ -99,6 +103,33 @@ class HomeController extends Controller
         $cart = Card::find($id);
         $cart->delete();
         return redirect()->back()->with('message','Product Delete Successfully');
+    }
+
+    public function confirmorder(Request $request)
+    {
+        $user = auth()->user();
+        $name=$user->name;
+        $phone=$user->phone;
+        $address=$user->adress;
+
+        foreach($request->productname as $key=>$productname)
+        {
+            $order = new order;
+            $order->product_name=$request->productname[$key];
+            $order->price=$request->price[$key];
+            $order->quantity=$request->quantity[$key];
+
+            $order->name=$name;
+            $order->phone=$phone;
+            $order->address=$address;
+
+            $order->status='pending';
+
+            $order->save();
+
+        }
+         DB::table('cards')->where('phone',$phone)->delete();
+          return redirect()->back()->with('message','Order Confirm Successfully');
     }
     
 
