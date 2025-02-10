@@ -403,7 +403,12 @@
                         @endforeach
                     </tbody>
                 </table>
-                 <button class="btn btn-success">Confirm Order</button>
+                <div class="text-center mt-4">
+    <button class="btn btn-success" id="confirm-order-button">
+        <i class="fas fa-check-circle" style="margin-right: 5px;"></i>Confirm Order
+    </button>
+</div>
+
                 </form>
             @else
                 <div class="cart-empty">
@@ -419,6 +424,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        
         // Preloader
         $(window).on('load', function() {
             if($('#preloader').length) {
